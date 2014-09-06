@@ -1,0 +1,4 @@
+vendor/*
+*.gem
+.DS_Store
+build/*
