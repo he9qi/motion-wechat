@@ -50,7 +50,7 @@ describe MotionWechat::API do
         req.message.mediaObject.should.be.kind_of(WXImageObject)
       end
 
-      MotionWechat::API.instance.send_image UIImage.alloc.init, \
+      MotionWechat::API.instance.send_image NSData.dataWithContentsOfFile("dummy"), \
         title: "title", description: "description"
     end
 

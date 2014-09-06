@@ -17,6 +17,11 @@ module MotionWechat
       @instance ||= new @config["key"], @config["secret"]
     end
 
+    ###
+    # media types: webpage, video, music and image
+    # usage:
+    #   send_video video_url, title: 't', description: 'desc'
+    ###
     %w(webpage video music image).each do |meth|
       define_method("send_#{meth}") do |arg, params|
         property = case meth
@@ -37,39 +42,6 @@ module MotionWechat
 
       end
     end
-
-    # send webpage url
-    # def send_webpage(page_url, params={})
-    #   send_message_with(params) do |options|
-    #     obj = WXWebpageObject.object
-    #     obj.webpageUrl = page_url
-    #     obj
-    #   end
-    # end
-
-    # def send_video(video_url, params={})
-    #   send_message_with(params) do |options|
-    #     obj = WXVideoObject.object
-    #     obj.videoUrl = video_url
-    #     obj
-    #   end
-    # end
-    #
-    # def send_music(video_url, params={})
-    #   send_message_with(params) do |options|
-    #     obj = WXMusicObject.object
-    #     obj.musicUrl = music_url
-    #     obj
-    #   end
-    # end
-    #
-    # def send_image(image_data, params={})
-    #   send_message_with(params) do |options|
-    #     obj = WXImageObject.object
-    #     obj.imageData = imageData
-    #     obj
-    #   end
-    # end
 
     def send_text(text)
       req = SendMessageToWXReq.alloc.init
