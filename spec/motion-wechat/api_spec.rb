@@ -9,7 +9,7 @@ describe MotionWechat::API do
     @mv.register
   end
 
-  describe "send messages" do
+  describe "Send messages" do
 
     before { @mv.register }
 
@@ -61,6 +61,30 @@ describe MotionWechat::API do
       end
 
       MotionWechat::API.instance.send_text "hello"
+    end
+
+    describe "Scene type" do
+
+      it "default sends to session" do
+        WXApi.stub!(:sendReq) do |req|
+          req.should.be.kind_of(SendMessageToWXReq)
+          req.scene.should == WXSceneSession
+        end
+
+        MotionWechat::API.instance.send_webpage "http://www.motion-wechat.com", \
+          title: "title", description: "description"
+      end
+
+      it "sends to time line" do
+        WXApi.stub!(:sendReq) do |req|
+          req.should.be.kind_of(SendMessageToWXReq)
+          req.scene.should == WXSceneTimeline
+        end
+
+        MotionWechat::API.instance.send_webpage "http://www.motion-wechat.com", \
+          title: "title", description: "description", scene: WXSceneTimeline
+      end
+
     end
 
   end

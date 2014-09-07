@@ -8,20 +8,29 @@ module MotionWechat
       @secret = secret
     end
 
+    # Register WechatAPI
     def register
       WXApi.registerApp(@key)
     end
 
+    # Returns singleton instance of MotionWechat
+    #
+    # Example:
+    #   MotionWechat::API.instance
+    #
     def self.instance
       @config   ||= NSBundle.mainBundle.objectForInfoDictionaryKey MotionWechat::Config.info_plist_key
-      @instance ||= new @config["key"], @config["secret"]
+      @instance = new @config["key"], @config["secret"]
     end
 
-    ###
-    # media types: webpage, video, music and image
-    # usage:
-    #   send_video video_url, title: 't', description: 'desc'
-    ###
+    # Send media objects, i.e. webpage, video, music and image to wechat
+    #
+    # Example:
+    #   MotionWechat::API.instance.send_video video_url, title: 't', description: 'desc'
+    #
+    # Arguments:
+    #   media object: (String / NSData)
+    #   options: (Hash)
     %w(webpage video music image).each do |meth|
       define_method("send_#{meth}") do |arg, params|
         property = case meth
@@ -43,6 +52,13 @@ module MotionWechat
       end
     end
 
+    # Send text to wechat
+    #
+    # Example:
+    #   MotionWechat::API.instance.send_text "hello, motion"
+    #
+    # Arguments:
+    #   text: (String)
     def send_text(text)
       req = SendMessageToWXReq.alloc.init
       req.bText = false

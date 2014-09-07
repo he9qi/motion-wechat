@@ -6,6 +6,20 @@ module MotionWechat
       "WechatConfig"
     end
 
+    # Setup wechat information to rubymotion app, i.e. key, secret...
+    #
+    # Example: (in Rakefile)
+    #
+    #   Motion::Project::App.setup do |app|
+    #     ...
+    #     MotionWechat::Config.setup(app, 'app_key', 'app_secret')
+    #   end
+    #
+    # Arguments:
+    #   RubyMotion app: (Motion::Project::App)
+    #   Wechat key:     (String)
+    #   Wechat secret:  (String)
+    #   other options:  (Hash)
     def setup(app, key, secret, opts={})
       options = {
         bundle_url_name: "weixin",
