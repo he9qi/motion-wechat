@@ -33,11 +33,9 @@ module MotionWechat
             'CFBundleURLSchemes' => [app.info_plist[info_plist_key][:key]] }
         ]
 
-      if app.info_plist['CFBundleURLTypes']
-        app.info_plist['CFBundleURLTypes'] << bundle_url_types
-      else
-        app.info_plist['CFBundleURLTypes'] = bundle_url_types
-      end
+      app.info_plist['CFBundleURLTypes'] ||= []
+      app.info_plist['CFBundleURLTypes'] << bundle_url_types
+      
     end
 
   end

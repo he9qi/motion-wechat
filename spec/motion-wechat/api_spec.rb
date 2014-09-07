@@ -1,17 +1,19 @@
 describe MotionWechat::API do
 
-  before { @mv = MotionWechat::API.instance }
-
   it "should call register key" do
     WXApi.stub!(:registerApp) do |key|
       key.should == "app_key"
     end
-    @mv.register
+    MotionWechat::API.instance
+  end
+
+  it "should return WXApi as wx" do
+    MotionWechat::API.instance.wx.should == WXApi
   end
 
   describe "Send messages" do
 
-    before { @mv.register }
+    before { @mv = MotionWechat::API.instance }
 
     it 'sends web page url' do
       WXApi.stub!(:sendReq) do |req|

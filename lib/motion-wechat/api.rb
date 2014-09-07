@@ -2,14 +2,12 @@ module MotionWechat
   module API
 
     InvalidMediaObject = Class.new StandardError
+    def wx; WXApi; end
 
+    # initialize weixin API using key and secret
     def initialize(key, secret, options={})
       @key    = key
       @secret = secret
-    end
-
-    # Register WechatAPI
-    def register
       WXApi.registerApp(@key)
     end
 
@@ -19,8 +17,11 @@ module MotionWechat
     #   MotionWechat::API.instance
     #
     def self.instance
-      @config   ||= NSBundle.mainBundle.objectForInfoDictionaryKey MotionWechat::Config.info_plist_key
-      @instance = new @config["key"], @config["secret"]
+      @instance ||= new config["key"], config["secret"]
+    end
+
+    def self.config
+      NSBundle.mainBundle.objectForInfoDictionaryKey MotionWechat::Config.info_plist_key
     end
 
     # Send media objects, i.e. webpage, video, music and image to wechat

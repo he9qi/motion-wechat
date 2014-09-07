@@ -28,11 +28,6 @@ end
 MotionWechat::Config.setup(app, 'app_key', 'app_secret')
 ```
 
-Initialize in app_delegate.rb
-```ruby
-MotionWechat::API.instance.register
-```
-
 Usage
 ==========
 
