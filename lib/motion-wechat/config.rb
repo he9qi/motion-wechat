@@ -22,7 +22,6 @@ module MotionWechat
     #   other options:  (Hash)
     def setup(app, key, secret, opts={})
       options = {
-        bundle_url_name: "weixin",
         key: key,
         secret: secret
       }.merge(opts)
