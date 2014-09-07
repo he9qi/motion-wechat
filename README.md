@@ -44,7 +44,7 @@ MotionWechat::API.instance.send_webpage "http://www.rubymotion.com", \
 ```
 
 ## TODO
-- delegete helpers, i.e. `WXApi.handleOpenURL(url, delegate:self)`
+- delegate helpers, i.e. `WXApi.handleOpenURL(url, delegate:self)`
 
 ## Contributions
 
