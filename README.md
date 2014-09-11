@@ -3,6 +3,7 @@ WechatSDK for RubyMotion
 
 - RubyMotion wrapper for [WechatSDK](https://open.weixin.qq.com)
 - Improving ...
+- Update** not use pod, use vendor
 
 ## Setup
 
@@ -19,12 +20,8 @@ require 'bundler'
 Bundler.require
 ```
 
-Then add WeChatSDK to your pods list and setup configuration in your Rakefile:
+Then setup configuration in your Rakefile:
 ```ruby
-app.pods do
-  pod 'WeChatSDK'
-end
-
 MotionWechat::Config.setup(app, 'app_key', 'app_secret')
 ```
 
