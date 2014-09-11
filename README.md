@@ -9,7 +9,6 @@ WechatSDK for RubyMotion
 
 Add MotionWechat to your Gemfile, and run `bundle install`:
 ```ruby
-gem 'motion-cocoapods'
 gem 'motion-wechat'
 ```
 
