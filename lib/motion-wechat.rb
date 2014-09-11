@@ -9,9 +9,6 @@ Motion::Project::App.setup do |app|
     app.files.unshift(file)
   end
 
-	app.pods ||= Motion::Project::CocoaPods.new(app)
-  app.pods do
-	  pod 'WeChatSDK'
-	end
+  app.vendor_project 'vendor/SDKExport', :static
 
 end
