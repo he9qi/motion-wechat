@@ -1,5 +1,6 @@
 WechatSDK for RubyMotion
 ====================
+[![Code Climate](https://codeclimate.com/github/he9qi/motion-wechat.png)](https://codeclimate.com/github/he9qi/motion-wechat)
 
 - RubyMotion wrapper for [WechatSDK](https://open.weixin.qq.com)
 - Improving ...
