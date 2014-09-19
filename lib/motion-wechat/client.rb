@@ -45,7 +45,7 @@ module MotionWechat
     def get_token(&block)
       params = "appid=#{@id}&secret=#{@secret}&code=#{@code}&grant_type=authorization_code"
       AFMotion::HTTP.get(token_url + "?" + params) do |res|
-        hash  = BW::JSON.parse res.body.to_s.dataUsingEncoding(NSString.defaultCStringEncoding)
+        hash  = to_hash res.body.to_s
         token = AccessToken.from_hash self, hash
         block.call token
       end
@@ -60,9 +60,15 @@ module MotionWechat
     #
     def get(path, opts = {}, &block)
       AFMotion::HTTP.get(@site + path, opts) do |res|
-        hash = BW::JSON.parse res.body.to_s.dataUsingEncoding(NSString.defaultCStringEncoding)
+        hash = to_hash res.body.to_s
         block.call hash
       end
+    end
+
+    private
+
+    def to_hash(string)
+      BW::JSON.parse string.dataUsingEncoding(NSString.defaultCStringEncoding)
     end
 
   end
