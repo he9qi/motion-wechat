@@ -2,13 +2,80 @@ module MotionWechat
   module API
 
     InvalidMediaObject = Class.new StandardError
+    InvalidClientError = Class.new ArgumentError
+
     def wx; WXApi; end
 
-    # initialize weixin API using key and secret
+    # Initialize weixin API using key and secret
+    #
+    # Example:
+    #   MtionWechat::API.new 'key', 'secret'
+    #
+    # Arguments:
+    #   key: (String)
+    #   secret: (String)
+    #   options: (Hash)
+    #
     def initialize(key, secret, options={})
       @key    = key
       @secret = secret
-      WXApi.registerApp(@key)
+    end
+
+    # Register weixin app, usually put in `app_delegate.rb`
+    #
+    # Example:
+    #   MotionWechat::API.instance.registerApp
+    #
+    def registerApp
+      WXApi.registerApp @key
+    end
+
+    # Register client
+    #
+    # Example:
+    #   MotionWechat::API.instance.registerClient "code"
+    #
+    # Arguments:
+    #   code: (String)
+    #
+    def registerClient(code)
+      @client ||= MotionWechat::Client.new @key, @secret, code
+    end
+
+    # Get user information
+    #
+    # Example:
+    #   MotionWechat::API.instance.get_user_info { |info| ... }
+    #
+    def get_user_info(&block)
+      raise InvalidClientError if @client.nil?
+      if @token.nil?
+        @client.get_token do |token|
+          @token = token
+          @token.get_user_info { |info| block.call info }
+        end
+      else
+        @token.get_user_info { |info| block.call info }
+      end
+    end
+
+    # Sends authorization request
+    #
+    # Example:
+    #   MotionWechat::API.instance.authorize
+    #
+    # Arguments:
+    #   opts: (Hash), state: "myapp"
+    #
+    def authorize(opts={})
+      options = {
+        scope: "snsapi_userinfo",
+        state: "motion-wechat-app"
+      }.merge(opts)
+      req = SendAuthReq.alloc.init
+      req.scope = options[:scope]
+      req.state = options[:state]
+      WXApi.sendReq(req)
     end
 
     # Returns singleton instance of MotionWechat
@@ -20,6 +87,11 @@ module MotionWechat
       @instance ||= new config["key"], config["secret"]
     end
 
+    # Returns info_plist_key of MotionWechat
+    #
+    # Example:
+    #   MotionWechat::API.config
+    #
     def self.config
       NSBundle.mainBundle.objectForInfoDictionaryKey MotionWechat::Config.info_plist_key
     end

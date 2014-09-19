@@ -14,4 +14,6 @@ Motion::Project::App.setup do |app|
   app.identifier = 'com.heyook.motion-wechat'
 
   MotionWechat::Config.setup(app, 'app_key', 'app_secret')
+  
+  app.resources_dirs << 'spec/fixtures'
 end
