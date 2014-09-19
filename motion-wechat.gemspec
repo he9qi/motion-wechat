@@ -15,4 +15,7 @@ Gem::Specification.new do |s|
   s.files      << 'README.md'
   s.test_files  = Dir.glob('spec/**/*.rb')
 
+  s.add_runtime_dependency "afmotion", '>= 2.3.1'
+  s.add_runtime_dependency 'bubble-wrap', "~> 1.7.0"
+
 end

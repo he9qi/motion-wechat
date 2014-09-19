@@ -2,3 +2,4 @@ vendor/SDKExport/build-iPhoneSimulator
 *.gem
 .DS_Store
 build/*
+vendor/Pods

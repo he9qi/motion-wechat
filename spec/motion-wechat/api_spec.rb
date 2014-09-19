@@ -4,7 +4,7 @@ describe MotionWechat::API do
     WXApi.stub!(:registerApp) do |key|
       key.should == "app_key"
     end
-    MotionWechat::API.instance
+    MotionWechat::API.instance.registerApp
   end
 
   it "should return WXApi as wx" do
@@ -15,6 +15,14 @@ describe MotionWechat::API do
 
     before { @mv = MotionWechat::API.instance }
 
+    it "sends auth message" do
+      WXApi.stub!(:sendReq) do |req|
+        req.should.be.kind_of(SendAuthReq)
+      end
+
+      @mv.authorize
+    end
+
     it 'sends web page url' do
       WXApi.stub!(:sendReq) do |req|
         req.should.be.kind_of(SendMessageToWXReq)
@@ -23,7 +31,7 @@ describe MotionWechat::API do
         req.message.mediaObject.webpageUrl.should == "http://www.motion-wechat.com"
       end
 
-      MotionWechat::API.instance.send_webpage "http://www.motion-wechat.com", \
+      @mv.send_webpage "http://www.motion-wechat.com", \
         title: "title", description: "description"
     end
 
@@ -33,7 +41,7 @@ describe MotionWechat::API do
         req.message.mediaObject.videoUrl.should == "http://www.youtube.com/1"
       end
 
-      MotionWechat::API.instance.send_video "http://www.youtube.com/1", \
+      @mv.send_video "http://www.youtube.com/1", \
         title: "title", description: "description"
     end
 
@@ -43,7 +51,7 @@ describe MotionWechat::API do
         req.message.mediaObject.musicUrl.should == "http://www.pandora.com/1"
       end
 
-      MotionWechat::API.instance.send_music "http://www.pandora.com/1", \
+      @mv.send_music "http://www.pandora.com/1", \
         title: "title", description: "description"
     end
 
@@ -52,7 +60,7 @@ describe MotionWechat::API do
         req.message.mediaObject.should.be.kind_of(WXImageObject)
       end
 
-      MotionWechat::API.instance.send_image NSData.dataWithContentsOfFile("dummy"), \
+      @mv.send_image NSData.dataWithContentsOfFile("dummy"), \
         title: "title", description: "description"
     end
 
@@ -62,7 +70,7 @@ describe MotionWechat::API do
         req.text.should == "hello"
       end
 
-      MotionWechat::API.instance.send_text "hello"
+      @mv.send_text "hello"
     end
 
     describe "Scene type" do
@@ -73,7 +81,7 @@ describe MotionWechat::API do
           req.scene.should == WXSceneSession
         end
 
-        MotionWechat::API.instance.send_webpage "http://www.motion-wechat.com", \
+        @mv.send_webpage "http://www.motion-wechat.com", \
           title: "title", description: "description"
       end
 
@@ -83,7 +91,7 @@ describe MotionWechat::API do
           req.scene.should == WXSceneTimeline
         end
 
-        MotionWechat::API.instance.send_webpage "http://www.motion-wechat.com", \
+        @mv.send_webpage "http://www.motion-wechat.com", \
           title: "title", description: "description", scene: WXSceneTimeline
       end
 

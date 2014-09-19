@@ -2,9 +2,8 @@ module MotionWechat
   module Config
     extend self
 
-    def info_plist_key
-      "WechatConfig"
-    end
+    def info_plist_key; "WechatConfig"; end
+    def key; @key; end
 
     # Setup wechat information to rubymotion app, i.e. key, secret...
     #
@@ -20,13 +19,11 @@ module MotionWechat
     #   Wechat key:     (String)
     #   Wechat secret:  (String)
     #   other options:  (Hash)
-    def setup(app, key, secret, opts={})
-      options = {
-        key: key,
-        secret: secret
-      }.merge(opts)
+    def setup(app, key, secret)
+      @key = key
+      @secret = secret
 
-      app.info_plist[info_plist_key] = options.select { |k| k == :key || k == :secret }
+      app.info_plist[info_plist_key] = { key: @key, secret: @secret }
 
       bundle_url_types = [
           { 'CFBundleURLName'    => "weixin",
@@ -34,8 +31,8 @@ module MotionWechat
         ]
 
       app.info_plist['CFBundleURLTypes'] ||= []
-      app.info_plist['CFBundleURLTypes'] << bundle_url_types
-      
+      app.info_plist['CFBundleURLTypes'] += bundle_url_types
+
     end
 
   end
