@@ -68,7 +68,7 @@ module MotionWechat
     private
 
     def to_hash(string)
-      BW::JSON.parse string.dataUsingEncoding(NSString.defaultCStringEncoding)
+      BW::JSON.parse string.dataUsingEncoding(NSUTF8StringEncoding)
     end
 
   end
