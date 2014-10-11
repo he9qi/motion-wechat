@@ -15,7 +15,7 @@ Motion::Project::App.setup do |app|
 
   app.pods ||= Motion::Project::CocoaPods.new(app)
   app.pods do
-	  pod 'AFNetworking'
-	end
+    pod "AFNetworking", "~> 2.0"
+  end
 
 end
