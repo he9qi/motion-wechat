@@ -27,7 +27,7 @@ MotionWechat::Config.setup(app, 'app_key', 'app_secret')
 
 Then register app in your `app_delegate.rb`
 ```ruby
-MotionWechat::API.instance.registerApp @key
+MotionWechat::API.instance.registerApp
 ```
 
 
