@@ -2,7 +2,7 @@ WechatSDK for RubyMotion
 ====================
 [![Code Climate](https://codeclimate.com/github/he9qi/motion-wechat.png)](https://codeclimate.com/github/he9qi/motion-wechat)
 
-This is a RubyMotion wrapper for [WechatSDK](https://open.weixin.qq.com) to integrate [WeChat](http://www.wechat.com) API with your Rubymotion app. See http://dev.wechat.com/wechatapi/documentation
+This is a RubyMotion gem for [WechatSDK](https://open.weixin.qq.com) to integrate [WeChat](http://www.wechat.com) API with your RubyMotion app. See http://dev.wechat.com/wechatapi/documentation
 
 ## Setup
 
