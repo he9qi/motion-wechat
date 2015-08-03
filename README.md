@@ -2,9 +2,7 @@ WechatSDK for RubyMotion
 ====================
 [![Code Climate](https://codeclimate.com/github/he9qi/motion-wechat.png)](https://codeclimate.com/github/he9qi/motion-wechat)
 
-- RubyMotion wrapper for [WechatSDK](https://open.weixin.qq.com)
-- Improving ...
-- Update** not use pod, use vendor
+This is a RubyMotion wrapper for [WechatSDK](https://open.weixin.qq.com) to integrate [WeChat](http://www.wechat.com) API with your Rubymotion app. See http://dev.wechat.com/wechatapi/documentation
 
 ## Setup
 
@@ -63,10 +61,10 @@ end
 ```ruby
 def onResp(resp)
   if resp.is_a? SendAuthResp
-    # token lang country code
+    # resp has *token* *lang* *country* *code*
     MotionWechat::API.instance.registerClient resp.code
     MotionWechat::API.instance.get_user_info do |info|
-      p info
+      # send *info* to server for authentication
     end
   end
 end
